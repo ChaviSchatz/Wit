@@ -34,9 +34,12 @@ class Wit:
 
     @staticmethod
     def move_to_staging(full_path):
+        # The path to the destination of the copy
         target_path = os.path.join(FileHandler.base_path, ".wit\\staging_area")
+        # A list containing the folder names in the path of the item to be added
         dirs = full_path[len(str(FileHandler.base_path))::]
         dirs = dirs.split("\\")
+        # The routing and copying process
         for item in dirs[:-1]:
             target_path = os.path.join(target_path, item)
             if not os.path.exists(target_path):
@@ -47,7 +50,6 @@ class Wit:
     def add(arg):
         if Wit.validate_is_wit_repo():
             full_path = FileHandler.get_source_path(arg)
-            Wit.move_to_staging(full_path)
             # try:
             #     full_path = FileHandler.get_source_path(arg)
             #     Wit.move_to_staging(full_path)
