@@ -35,20 +35,17 @@ class Wit:
     @staticmethod
     def move_to_staging(full_path):
         target_path = os.path.join(FileHandler.base_path, ".wit\\staging_area")
-        for root, dirs, files in os.walk(".", topdown=True):
-
-            for name in files:
-                if name == full_path.split("\\")[-1]:
-
-                    print("file: ", os.path.join(root, name))
-            for name in dirs:
-                print("folder", os.path.join(root, name))
+        dirs = full_path[len(str(FileHandler.base_path))::]
+        dirs = dirs.split("\\")
+        for item in dirs[:-1]:
+            target_path = os.path.join(target_path, item)
+            if not os.path.exists(target_path):
+                os.mkdir(target_path)
         FileHandler.copy_items(full_path, target_path)
 
     @staticmethod
     def add(arg):
         if Wit.validate_is_wit_repo():
-            print("base path", FileHandler.base_path)
             full_path = FileHandler.get_source_path(arg)
             Wit.move_to_staging(full_path)
             # try:

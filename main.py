@@ -3,7 +3,6 @@ from wit_interface import WitInterface
 
 if __name__ == '__main__':
     @click.command()
-    # @click.option("--add", help="get name of file/directory")
     @click.argument("command")
     @click.argument("param", default="")
     def wit_CLI(command, param):
