@@ -34,27 +34,27 @@ class Wit:
 
     @staticmethod
     def move_to_staging(full_path):
-        # The path to the destination of the copy
         target_path = os.path.join(FileHandler.base_path, ".wit\\staging_area")
         # A list containing the folder names in the path of the item to be added
         dirs = full_path[len(str(FileHandler.base_path))::]
         dirs = dirs.split("\\")
-        # The routing and copying process
         for item in dirs[:-1]:
             target_path = os.path.join(target_path, item)
+            # if the folder (item) not exists we will create the dir
             if not os.path.exists(target_path):
                 os.mkdir(target_path)
+        # When we have reached the lowest layer,
+        # only then will we copy the requested files to the path we chained
         FileHandler.copy_items(full_path, target_path)
 
     @staticmethod
     def add(arg):
         if Wit.validate_is_wit_repo():
-            full_path = FileHandler.get_source_path(arg)
-            # try:
-            #     full_path = FileHandler.get_source_path(arg)
-            #     Wit.move_to_staging(full_path)
-            # except:
-            #     click.secho('file is not exist', fg="red", bold=True)
+            try:
+                full_path = FileHandler.get_source_path(arg)
+                Wit.move_to_staging(full_path)
+            except:
+                click.secho('file is not exist', fg="red", bold=True)
         else:
             click.secho('Wit is not exist', fg="red", bold=True)
 
