@@ -1,8 +1,10 @@
+import click
+
 from wit import Wit
 
 
 class WitInterface:
-    available_commands = ['init', 'add']
+    available_commands = ['init', 'add', 'commit']
 
     @staticmethod
     def command_handling(command, arg):
@@ -10,4 +12,10 @@ class WitInterface:
             case "init":
                 Wit.init()
             case "add":
-                Wit.add(arg)
+                if len(arg) > 0:
+                    Wit.add(arg)
+            case "commit":
+                if len(arg) > 0:
+                    Wit.commit(arg)
+                click.secho('Try again with massage', fg="red", bold=True)
+

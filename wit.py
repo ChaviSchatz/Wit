@@ -62,5 +62,6 @@ class Wit:
             logger.error("Try to do Wit command without init wit")
 
     @staticmethod
-    def commit():
-        pass
+    def commit(msg):
+        if Wit.validate_is_wit_repo():
+            pass
