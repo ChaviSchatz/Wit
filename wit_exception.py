@@ -1,0 +1,2 @@
+class WitException(ValueError):
+    pass

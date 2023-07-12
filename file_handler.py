@@ -1,11 +1,11 @@
 import os
 import shutil
-from pathlib import Path
+from logging_handler import logger
+from wit_exception import WitException
 
 
 class FileHandler:
-    base_path = None
-    working_directory = None
+
 
     @staticmethod
     def create_dir(path):
@@ -18,9 +18,8 @@ class FileHandler:
     @staticmethod
     def get_source_path(path):
         full_path = os.path.join(os.getcwd(), path)
-        print("full path: ", full_path)
         if not os.path.exists(full_path):
-            raise ValueError
+            raise WitException
         return full_path
 
     @classmethod
@@ -29,4 +28,3 @@ class FileHandler:
             shutil.copytree(origin, os.path.join(target, origin.split("\\")[-1]), dirs_exist_ok=True)
         else:
             shutil.copy2(origin, target)
-
